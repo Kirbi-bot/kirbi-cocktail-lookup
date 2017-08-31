@@ -9,7 +9,7 @@ module.exports = function (Kirbi) {
 			description: 'Used to retrieve information about a cocktail.',
 			process: (msg, suffix, isEdit, cb) => {
 				if (!suffix) {
-					cb({embed: {
+					cb({ embed: {
 						color: Kirbi.Config.discord.defaultEmbedColor,
 						author: {
 							name: 'CocktailDB',
@@ -17,7 +17,7 @@ module.exports = function (Kirbi) {
 							icon_url: 'https://emojipedia-us.s3.amazonaws.com/thumbs/240/twitter/103/cocktail-glass_1f378.png'
 						},
 						description: 'How about asking for something in specific?'
-					}}, msg);
+					} }, msg);
 					return;
 				}
 
@@ -65,7 +65,7 @@ module.exports = function (Kirbi) {
 								value: result.strInstructions
 							});
 
-							cb({embed: {
+							cb({ embed: {
 								color: Kirbi.Config.discord.defaultEmbedColor,
 								title: `__${result.strDrink}__`,
 								author: {
@@ -77,9 +77,9 @@ module.exports = function (Kirbi) {
 									url: thumbnail
 								},
 								fields
-							}}, msg);
+							} }, msg);
 						} else {
-							cb({embed: {
+							cb({ embed: {
 								color: Kirbi.Config.discord.defaultEmbedColor,
 								author: {
 									name: 'CocktailDB',
@@ -87,10 +87,10 @@ module.exports = function (Kirbi) {
 									icon_url: 'https://emojipedia-us.s3.amazonaws.com/thumbs/240/twitter/103/cocktail-glass_1f378.png'
 								},
 								description: `${response.data.drinks[0].strDrink} is a good drink, but I don't have a good way to describe it.`
-							}}, msg);
+							} }, msg);
 						}
 					} else {
-						cb({embed: {
+						cb({ embed: {
 							color: Kirbi.Config.discord.defaultEmbedColor,
 							author: {
 								name: 'CocktailDB',
@@ -98,7 +98,7 @@ module.exports = function (Kirbi) {
 								icon_url: 'https://emojipedia-us.s3.amazonaws.com/thumbs/240/twitter/103/cocktail-glass_1f378.png'
 							},
 							description: `Damn, I've never heard of that. Where do I need to go to find it?`
-						}}, msg);
+						} }, msg);
 					}
 				});
 			}
