@@ -19,17 +19,17 @@ module.exports = function (Kirbi) {
 						description: 'How about asking for something in specific?'
 					}}, msg);
 					return;
-				};
-		
-				require('request')(`http://www.thecocktaildb.com/api/json/v1/1/search.php?s=${encodeURIComponent(suffix)}`, function (err, res, body) {
-					var response = JSON.parse(body);
+				}
+
+				require('request')(`http://www.thecocktaildb.com/api/json/v1/1/search.php?s=${encodeURIComponent(suffix)}`, (err, res, body) => {
+					const response = JSON.parse(body);
 					if (typeof response !== 'undefined' && response.drinks !== null) {
-						let result = response.drinks[0];
-						let ingredients = Object.entries(result).slice(7, 22).map(entry => entry[1]);
-						let ratios = Object.entries(result).slice(22, 37).map(entry => entry[1]);
-		
+						const result = response.drinks[0];
+						const ingredients = Object.entries(result).slice(7, 22).map(entry => entry[1]);
+						const ratios = Object.entries(result).slice(22, 37).map(entry => entry[1]);
+
 						if (typeof result.strInstructions !== 'undefined' && result.strInstructions !== '' && result.strInstructions !== null) {
-							let fields = [];
+							const fields = [];
 							let thumbnail = '';
 							if (typeof result.strDrinkThumb !== 'undefined' && result.strDrinkThumb !== '' && result.strDrinkThumb !== null) {
 								thumbnail = result.strDrinkThumb;
@@ -42,8 +42,8 @@ module.exports = function (Kirbi) {
 									value: result.strGlass,
 									inline: true
 								});
-							};
-							if (typeof ingredients !== 'undefined' && ingredients.length) {
+							}
+							if (typeof ingredients !== 'undefined' && ingredients.length > 0) {
 								let ingredientsList = '';
 								ingredients.forEach((element, index) => {
 									if (element !== '' && element !== '\n' && element !== null) {
@@ -52,19 +52,19 @@ module.exports = function (Kirbi) {
 										} else {
 											ingredientsList += `* ${element}\n`;
 										}
-									};
+									}
 								});
 								fields.push({
 									name: 'Ingredients:',
 									value: ingredientsList,
 									inline: true
 								});
-							};
+							}
 							fields.push({
 								name: 'Instructions:',
 								value: result.strInstructions
 							});
-		
+
 							cb({embed: {
 								color: Kirbi.Config.discord.defaultEmbedColor,
 								title: `__${result.strDrink}__`,
@@ -76,7 +76,7 @@ module.exports = function (Kirbi) {
 								thumbnail: {
 									url: thumbnail
 								},
-								fields: fields
+								fields
 							}}, msg);
 						} else {
 							cb({embed: {
