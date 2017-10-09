@@ -27,8 +27,8 @@ module.exports = Kirbi => {
 					const response = JSON.parse(body);
 					if (typeof response !== 'undefined' && response.drinks !== null) {
 						const result = response.drinks[0];
-						const ingredients = Object.entries(result).slice(7, 22).map(entry => entry[1]);
-						const ratios = Object.entries(result).slice(22, 37).map(entry => entry[1]);
+						const ingredients = Object.entries(result).slice(9, 24).map(entry => entry[1]);
+						const ratios = Object.entries(result).slice(24, 39).map(entry => entry[1]);
 
 						if (typeof result.strInstructions !== 'undefined' && result.strInstructions !== '' && result.strInstructions !== null) {
 							const fields = [];
